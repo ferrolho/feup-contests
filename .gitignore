@@ -30,3 +30,6 @@ _ReSharper*/
 *.svn
 *.opensdf
 *.suo
+*.cbp
+*.depend
+*.layout
