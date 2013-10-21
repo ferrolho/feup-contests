@@ -1,0 +1,27 @@
+Explicação: inicialmente temos uma pequena verificação para ver se as strings dadas são iguais e se assim for a resposta poderá ser imediata com (0 moves). 
+Depois tentamos ver se a string s (no meu código: "code") tem algum  '?' que precise de ser substituído. Para isso contamos o numero de 0 e 1 de uma string e de outra. 
+(Para a string s temos needzero and needone e para a string t temos realzero e realone) 
+para além destas variáveis temos também um inteiro aux que nos indica se foram ou não encontrados ? na string s.
+
+Caso o valor de nnedone na string s seja superior ao numero de realone na string t podemos automaticamente dizer que é impossível e então passamos ao próximo teste 
+(moves -1)
+
+Depois disto e se o nosso aux estiver com um inteiro positivo significa que temos então que substituir ? por 0 ou 1 dependendo do caso.
+Para isso percorremos a string s e caso seja encontrado um ? podemos automaticamente somar um ao contador moves pois será necessário fazer uma substituição, 
+seja ela qual for. De seguida tentamos perceber se o melhor é meter 0 ou 1 nessa posição. 
+Para isso vemos se a string precisa de 0 ou 1 com o auxilio dos contadores que foram preenchidos em cima. 
+Se forem precisos meter '1' na string e em t também esteja um '1' então podemos automaticamente substituir e incrementar  contador (poupamos uma futura substituição), 
+o mesmo é feito para o valor '0'. Caso esta coincidência não se verifique tentamos então perceber qual o simbolo em falta e colocamos no seu lugar.
+
+Depois desta troca de símbolos verificamos mais uma vez se as strings são iguais. 
+Se assim for podemos também passar ao próximo teste devolvendo o numero de moves até então.
+
+De seguida, caso as strings não sejam iguais temos então de perceber se é possível efetuar alguma troca. 
+Para isso, percorremos a string s e caso exista em alguma posição uma divergência entre o símbolo que está também em t, 
+tentamos procurar uma outra posição à frente que contenha um símbolo diferente para se efetuar a troca. 
+Caso se verifique a troca é efetuada e incrementamos de novo o nosso contador moves.
+
+Mais uma vez a verificação se as strings são iguais.
+
+Por último, tentamos perceber se ainda existem zeros que necessitem de ser '1'. 
+Para cada um desses símbolos é efetuada a substituição e incrementado o nosso contador novamente moves.
