@@ -23,9 +23,14 @@ int main()
     while(cin>>n1>>n2)
     {
         count++;
+
         if(n1==0 && n2==0)
         {
             return 0;
+        }
+        if(count>1)
+        {
+            cout<<endl;
         }
         for(int i=0;i<n1;i++)
         {
@@ -67,7 +72,7 @@ int main()
             }
             cout<<endl;
         }
-        cout<<endl;
+
     }
     return 0;
 }
