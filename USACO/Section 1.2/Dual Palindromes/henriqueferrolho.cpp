@@ -23,7 +23,7 @@ vector<unsigned int> convertToBase(unsigned int x, unsigned int Base) {
     return num;
 }
 
-bool isPal(vector<unsigned int> num) {
+bool isPal(vector<unsigned int> &num) {
     unsigned int size = num.size();
     FOR(i, 0, size/2) {
         if(num[i] != num[size-1-i])
