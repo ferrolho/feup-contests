@@ -32,7 +32,7 @@ void const printRecords(vector<Record> &records) {
 bool const biggerRecord(Record r1, Record r2) {
 	unsigned int limit = r1.speeds.size();
 
-	if (r2.speeds.size() < r1.speeds.size())
+	if (r2.speeds < r1.speeds)
 		limit = r2.speeds.size();
 
 	FOR(i, 0, limit) {
@@ -43,13 +43,13 @@ bool const biggerRecord(Record r1, Record r2) {
 	}
 
 	// if all values are equal but one vec is bigger than other
-	if (r1.speeds.size() > r2.speeds.size())
+	if (r1.speeds > r2.speeds)
 		return true;
-	else if (r1.speeds.size() < r2.speeds.size())
+	else if (r1.speeds < r2.speeds)
 		return false;
 	// if speed records are the same, compare plate
 	else
-		return r1.plate > r2.plate;
+		return r1.plate < r2.plate;
 }
 
 int main() {
@@ -60,7 +60,7 @@ int main() {
 	char plate[12];
 	unsigned int speed;
 	while(scanf("%s %u", plate, &speed) != EOF)
-		records[plate].push_back(speed);
+		records[string(plate)].push_back(speed);
 
 	// sorting speeds for each record
 	for(map<string, vui>::iterator it = records.begin(); it != records.end(); it++)
