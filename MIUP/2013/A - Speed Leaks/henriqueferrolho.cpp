@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>	
 #include <vector>
+#include <algorithm>
 using namespace std;
 typedef vector<int> vi;
 typedef vector<unsigned int> vui;
@@ -11,6 +12,8 @@ struct Record {
 	string plate;
 	vui speeds;
 };
+
+bool faster(unsigned int i, unsigned int j) { return (i > j); }
 
 void const printRecords(vector<Record> &records) {
 	FOR(i, 0, records.size()) {
@@ -29,17 +32,8 @@ void addRecord(string plate, unsigned int speed, vector<Record> &records) {
 	FOR(i, 0, records.size()) {
 		// license plate match found
 		if (records[i].plate.compare(plate) == 0) {
-			// inserting speed in the correct place
-			FOR(j, 0, records[i].speeds.size()) {
-				if (speed >= records[i].speeds[j]) {
-					records[i].speeds.insert(records[i].speeds.begin() + j, speed);
-					break;
-				} else if (j == records[i].speeds.size()-1) {
-					records[i].speeds.push_back(speed);
-					break;
-				}
-			}
-
+			// pushing back speed
+			records[i].speeds.push_back(speed);
 			return;
 		}
 	}
@@ -51,7 +45,7 @@ void addRecord(string plate, unsigned int speed, vector<Record> &records) {
 	records.push_back(temp);
 }
 
-bool operator >(Record r1, Record r2) {
+bool biggerRecord(Record r1, Record r2) {
 	unsigned int limit = r1.speeds.size();
 
 	if (r2.speeds.size() < r1.speeds.size())
@@ -78,25 +72,6 @@ bool operator >(Record r1, Record r2) {
 	}
 }
 
-void sortRecords(vector<Record> &records) {
-	vector<Record> sortedVec;
-
-	sortedVec.push_back(records[0]);
-	FOR(i, 1, records.size()) {
-		FOR(j, 0, i) {
-			if (records[i] > sortedVec[j]) {
-				sortedVec.insert(sortedVec.begin() + j, records[i]);
-				break;
-			} else if (j == i-1) {
-				sortedVec.push_back(records[i]);
-				break;
-			}
-		}
-	}
-
-	records = sortedVec;
-}
-
 int main() {
 	// initializing data
 	vector<Record> records;
@@ -107,8 +82,13 @@ int main() {
 	while(scanf("%s %u", plate, &speed) != EOF)
 		addRecord(plate, speed, records);
 
-	// processing data
-	sortRecords(records);
+	// sorting speeds for each record
+	FOR(i, 0, records.size())
+		sort(records[i].speeds.begin(), records[i].speeds.end(), faster);
+	// sorting records
+	sort(records.begin(), records.end(), biggerRecord);
+
+	// outputting data
 	printRecords(records);
 
 	return 0;
