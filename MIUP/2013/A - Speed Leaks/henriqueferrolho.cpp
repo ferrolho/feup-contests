@@ -47,13 +47,9 @@ bool const biggerRecord(Record r1, Record r2) {
 		return true;
 	else if (r1.speeds.size() < r2.speeds.size())
 		return false;
-	// if speed reocrds are the same, compare plate
-	else {
-		if (r1.plate > r2.plate)
-			return true;
-		else
-			return false;
-	}
+	// if speed records are the same, compare plate
+	else
+		return r1.plate > r2.plate;
 }
 
 int main() {
