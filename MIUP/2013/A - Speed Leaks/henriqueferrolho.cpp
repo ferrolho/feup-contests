@@ -2,6 +2,7 @@
 #include <iostream>
 #include <string>	
 #include <vector>
+#include <map>
 #include <algorithm>
 using namespace std;
 typedef vector<int> vi;
@@ -9,43 +10,26 @@ typedef vector<unsigned int> vui;
 #define FOR(i, a, b) for(unsigned int i = a; i < b; i++)
 
 struct Record {
-	string plate;
-	vui speeds;
+        string plate;
+        vui speeds;
 };
 
 bool faster(unsigned int i, unsigned int j) { return (i > j); }
 
 void const printRecords(vector<Record> &records) {
-	FOR(i, 0, records.size()) {
-		// printing plate
-		printf("%s", records[i].plate.c_str());
+        FOR(i, 0, records.size()) {
+                // printing plate
+                printf("%s", records[i].plate.c_str());
 
-		// printing speeds
-		FOR(j, 0, records[i].speeds.size()) {
-			printf(" %u", records[i].speeds[j]);
-		}
-		printf("\n");
-	}
+                // printing speeds
+                FOR(j, 0, records[i].speeds.size()) {
+                        printf(" %u", records[i].speeds[j]);
+                }
+                printf("\n");
+        }
 }
 
-void addRecord(string plate, unsigned int speed, vector<Record> &records) {
-	FOR(i, 0, records.size()) {
-		// license plate match found
-		if (records[i].plate.compare(plate) == 0) {
-			// pushing back speed
-			records[i].speeds.push_back(speed);
-			return;
-		}
-	}
-
-	// if rec uses a license plate not yet on records
-	Record temp;
-	temp.plate = plate;
-	temp.speeds = vui (1, speed);
-	records.push_back(temp);
-}
-
-bool biggerRecord(Record r1, Record r2) {
+bool const biggerRecord(Record r1, Record r2) {
 	unsigned int limit = r1.speeds.size();
 
 	if (r2.speeds.size() < r1.speeds.size())
@@ -74,22 +58,32 @@ bool biggerRecord(Record r1, Record r2) {
 
 int main() {
 	// initializing data
-	vector<Record> records;
+	map<string, vui> records;
 
 	// reading input
 	char plate[12];
 	unsigned int speed;
 	while(scanf("%s %u", plate, &speed) != EOF)
-		addRecord(plate, speed, records);
+		records[plate].push_back(speed);
 
 	// sorting speeds for each record
-	FOR(i, 0, records.size())
-		sort(records[i].speeds.begin(), records[i].speeds.end(), faster);
+	for(map<string, vui>::iterator it = records.begin(); it != records.end(); it++)
+		sort(it->second.begin(), it->second.end(), faster);
+
+	// switching to vector to sort data
+	vector<Record> sortedRecords;
+	for(map<string, vui>::iterator it = records.begin(); it != records.end(); it++) {
+		Record temp;
+		temp.plate = it->first;
+		temp.speeds = it->second;
+		sortedRecords.push_back(temp);
+	}
+
 	// sorting records
-	sort(records.begin(), records.end(), biggerRecord);
+	sort(sortedRecords.begin(), sortedRecords.end(), biggerRecord);
 
 	// outputting data
-	printRecords(records);
+	printRecords(sortedRecords);
 
 	return 0;
 }
