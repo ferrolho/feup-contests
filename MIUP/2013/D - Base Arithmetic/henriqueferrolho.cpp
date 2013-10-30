@@ -23,7 +23,7 @@ int charToNum(char ch) {
         return -1;
 }
 
-int convertFromBase(unsigned int base, string str) {
+unsigned int convertFromBase(unsigned int base, string str) {
     int num = 0;
 
     FOR(i, 0, str.size())
@@ -61,9 +61,7 @@ int main() {
     FOR(i, getStartBase()+1, 37) {
         //cout << "\nBase: " << i << endl;
         //cout << convertFromBase(i, n1) + convertFromBase(i, n2) << " == " << convertFromBase(i, n3) * convertFromBase(i, n4) << endl;
-        if (convertFromBase(i, n3) == 0)
-            break;
-        else if(convertFromBase(i, n1) + convertFromBase(i, n2) == convertFromBase(i, n3) * convertFromBase(i, n4)) {
+        if(convertFromBase(i, n1) + convertFromBase(i, n2) == convertFromBase(i, n3) * convertFromBase(i, n4)) {
             base = i;
             break;
         }
