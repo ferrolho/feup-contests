@@ -24,10 +24,10 @@ int charToNum(char ch) {
 }
 
 unsigned int convertFromBase(unsigned int base, string str) {
-    int num = 0;
+    unsigned int num = 0;
 
     FOR(i, 0, str.size())
-    num += charToNum(str[i]) * pow(base, str.size()-1-i);
+    num = num * base + charToNum(str[i]);
 
     return num;
 }
