@@ -25,7 +25,11 @@ struct Registo
         i++;
     }
 
-    return velocidades.size() > r.velocidades.size();
+    if (velocidades.size() == r.velocidades.size())
+      return matricula > r.matricula;
+    else
+      return velocidades.size() > r.velocidades.size();
+
   }
 };
 
