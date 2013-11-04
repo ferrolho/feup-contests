@@ -26,7 +26,7 @@ struct Registo
     }
 
     if (velocidades.size() == r.velocidades.size())
-      return matricula > r.matricula;
+      return matricula < r.matricula;
     else
       return velocidades.size() > r.velocidades.size();
 
@@ -69,8 +69,6 @@ int main()
     {
       cout << " " << itr->velocidades[k];
     }
-
-    if (itr != --registos_set.end())
       cout << endl;
   }
 }
