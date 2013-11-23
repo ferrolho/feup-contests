@@ -1,11 +1,15 @@
+/*
+ID: migueel1
+PROG: combo
+LANG: C++
+*/
+
 #include <iostream>
 #include <string>
 #include <vector>
 #include <cmath>
-#include <conio.h>
 #include <sstream>
-#include <cmath>
-#include <conio.h>
+#include <fstream>
 
 using namespace std;
 
@@ -27,10 +31,11 @@ bool pertoDeCombinacao(int CombChave[], int CombMinha[])
 
 int main()
 {
-  //ifstream in("combo.in"), out("combo.out");
+  ifstream in("combo.in");
+  ofstream out("combo.out");
   int JohnC[3], MasterC[3];
 
-  cin >> N >> JohnC[0] >> JohnC[1] >> JohnC[2] >> MasterC[0] >> MasterC[1] >> MasterC[2];
+  in >> N >> JohnC[0] >> JohnC[1] >> JohnC[2] >> MasterC[0] >> MasterC[1] >> MasterC[2];
 
   int total=0;
 
@@ -45,5 +50,6 @@ int main()
       }
 
 
-  cout << total;
+  out << total;
+  in.close(); out.close();
 }
