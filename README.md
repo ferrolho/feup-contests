@@ -4,7 +4,7 @@ FEUP-contests
 ###Contest templates:
 ####C++
 
-```
+```c++
 /*
  ID: USER_NAME
  PROG: PROB_NAME
