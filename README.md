@@ -10,6 +10,7 @@ FEUP-contests
  LANG: C++
  */
 #include <stdio.h>
+#include <iostream>
 #include <string>
 #include <vector>
 
@@ -39,7 +40,6 @@ int main() {
 	// -- processing -- //
 	x *= x;
 
-	// output
 	// -- output -- //
 	fprintf(fout, "%u\n", x + y);
 	
