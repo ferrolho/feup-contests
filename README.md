@@ -33,6 +33,7 @@ int main() {
 	FILE *fin = fopen(str.c_str(), "r");
 	str = PROB_NAME + ".out";
 	FILE *fout = fopen(str.c_str(), "w");
+	assert(fin != NULL && fout != NULL);
 	
 	// -- input -- //
 	ui x, y;
