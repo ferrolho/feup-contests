@@ -10,6 +10,7 @@ FEUP-contests
  LANG: C++
  */
 #include <stdio.h>
+#include <assert.h>
 #include <iostream>
 #include <string>
 #include <vector>
