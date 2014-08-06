@@ -9,9 +9,9 @@ FEUP-contests
  PROG: PROB_NAME
  LANG: C++
  */
-#include <stdio.h>
 #include <assert.h>
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <vector>
 #include <algorithm>
@@ -31,21 +31,58 @@ const string PROB_NAME = "CHANGE THIS";
 int main() {
 	string str;
 	str = PROB_NAME + ".in";
-	FILE *fin = fopen(str.c_str(), "r");
+	ifstream fin;
+	fin.open(str.c_str());
 	str = PROB_NAME + ".out";
-	FILE *fout = fopen(str.c_str(), "w");
+	ofstream fout;
+	fout.open(str.c_str());
 	assert(fin != NULL && fout != NULL);
-	
+
 	// -- input -- //
 	ui x, y;
+	fin >> x >> y;
+
+	// -- processing -- //
+	x *= x;
+
+	// -- output -- //
+	fout << x + y << endl;
+
+	return 0;
+}
+```
+####C
+```c
+/*
+ ID: USER_NAME
+ PROG: PROB_NAME
+ LANG: C
+ */
+#include <stdio.h>
+#include <assert.h>
+#include <string.h>
+
+// TODO CHANGE THIS ACCORDINGLY!
+const char PROB_NAME[20] = "CHANGE THIS";
+
+int main() {
+	char str[25];
+	strcpy(str, PROB_NAME), strcat(str, ".in");
+	FILE *fin = fopen(str, "r");
+	strcpy(str, PROB_NAME), strcat(str, ".out");
+	FILE *fout = fopen(str, "w");
+	assert(fin != NULL && fout != NULL);
+
+	// -- input -- //
+	int x, y;
 	fscanf(fin, "%d %d", &x, &y);
 
 	// -- processing -- //
 	x *= x;
 
 	// -- output -- //
-	fprintf(fout, "%u\n", x + y);
-	
+	fprintf(fout, "%d\n", x + y);
+
 	return 0;
 }
 ```
