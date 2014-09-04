@@ -53,36 +53,27 @@ int main() {
 ```
 ####C
 ```c
-/*
- ID: USER_NAME
- PROG: PROB_NAME
- LANG: C
- */
-#include <stdio.h>
-#include <assert.h>
-#include <string.h>
-
-// TODO CHANGE THIS ACCORDINGLY!
-const char PROB_NAME[20] = "CHANGE THIS";
-
-int main() {
-	char str[25];
-	strcpy(str, PROB_NAME), strcat(str, ".in");
-	FILE *fin = fopen(str, "r");
-	strcpy(str, PROB_NAME), strcat(str, ".out");
-	FILE *fout = fopen(str, "w");
-	assert(fin != NULL && fout != NULL);
-
-	// -- input -- //
+typedef struct {
 	int x, y;
-	fscanf(fin, "%d %d", &x, &y);
+	int xSign, ySign;
+	int deltaX, deltaY;
+	double speedMultiplier;
 
-	// -- processing -- //
-	x *= x;
+	int byteBeingRead;
+	unsigned long packet[3];
 
-	// -- output -- //
-	fprintf(fout, "%d\n", x + y);
+	int leftButtonDown;
+	int middleButtonDown;
+	int rightButtonDown;
 
-	return 0;
-}
+	int leftButtonReleased;
+	int rightButtonReleased;
+	int middleButtonReleased;
+
+	int size;
+	int color1, color2;
+
+	int hasBeenUpdated;
+	int draw;
+} Mouse;
 ```
