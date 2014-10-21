@@ -53,27 +53,36 @@ int main() {
 ```
 ####C
 ```c
-typedef struct {
-	int x, y;
-	int xSign, ySign;
-	int deltaX, deltaY;
-	double speedMultiplier;
+/*
+ ID: USER_NAME
+ PROG: PROB_NAME
+ LANG: C
+ */
+#include <stdio.h>
+#include <assert.h>
+#include <string.h>
 
-	int byteBeingRead;
-	unsigned long packet[3];
+// TODO CHANGE THIS ACCORDINGLY!
+const char PROB_NAME[20] = "CHANGE THIS";
 
-	int leftButtonDown;
-	int middleButtonDown;
-	int rightButtonDown;
+int main() {
+    char str[25];
+    strcpy(str, PROB_NAME), strcat(str, ".in");
+    FILE *fin = fopen(str, "r");
+    strcpy(str, PROB_NAME), strcat(str, ".out");
+    FILE *fout = fopen(str, "w");
+    assert(fin != NULL && fout != NULL);
 
-	int leftButtonReleased;
-	int rightButtonReleased;
-	int middleButtonReleased;
+    // -- input -- //
+    int x, y;
+    fscanf(fin, "%d %d", &x, &y);
 
-	int size;
-	int color1, color2;
+    // -- processing -- //
+    x *= x;
 
-	int hasBeenUpdated;
-	int draw;
-} Mouse;
+    // -- output -- //
+    fprintf(fout, "%d\n", x + y);
+
+    return 0;
+}
 ```
