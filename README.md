@@ -2,7 +2,90 @@ FEUP-contests
 =============
 
 ###Contest templates:
+
+####C++11
+
+```c++11
+/*
+ ID: USER_NAME
+ PROG: PROB_NAME
+ LANG: C++11
+ */
+
+#include <assert.h>
+#include <stdio.h>
+#include <algorithm>
+#include <cmath>
+#include <iterator>
+#include <string>
+#include <vector>
+
+using namespace std;
+
+/*
+ * READ ME!
+ * Change this to the respective problem name! And don't
+ * forget to change the name in the top comment as well.
+ */
+const string PROB_NAME = "CHANGE THIS";
+
+// Custom types
+typedef unsigned int ui;
+typedef vector<int> vi;
+typedef vector<unsigned int> vui;
+typedef vector<vector<int>> vvi;
+typedef vector<vector<unsigned int>> vvui;
+
+// Macros
+#define ALL(v) (v).begin(), (v).end()
+
+// Constants
+
+// Globals
+ui n;
+
+vi mergeSort(const vi &data) {
+	if (data.size() <= 1)
+		return data;
+
+	int middle = data.size() / 2;
+	vi left(data.begin(), data.begin() + middle);
+	vi right(data.begin() + middle, data.end());
+
+	left = mergeSort(left);
+	right = mergeSort(right);
+
+	vi result(data.size());
+	merge(ALL(left), ALL(right), result.begin());
+
+	return result;
+}
+
+ui solve(ui n) {
+	return n;
+}
+
+int main() {
+	// DO NOT MESS WITH THIS BLOCK
+	string str;
+	str = PROB_NAME + ".in";
+	FILE *fin = fopen(str.c_str(), "r");
+	str = PROB_NAME + ".out";
+	FILE *fout = fopen(str.c_str(), "w");
+	assert(fin != NULL && fout != NULL);
+
+	// input
+	fscanf(fin, "%d", &n);
+
+	// output
+	fprintf(fout, "%u\n", solve(n));
+
+	return 0;
+}
+```
+
 ####C++
+
 ```c++
 /*
  ID: USER_NAME
@@ -51,7 +134,9 @@ int main() {
 	return 0;
 }
 ```
+
 ####C
+
 ```c
 /*
  ID: USER_NAME
