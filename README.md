@@ -1,11 +1,11 @@
-FEUP-contests
+FEUP Contests
 =============
 
 ###Contest templates:
 
 ####C++11
 
-```c++11
+```c++
 /*
  ID: USER_NAME
  PROG: PROB_NAME
