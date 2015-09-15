@@ -12,7 +12,6 @@
 using namespace std;
 
 int main() {
-
 	FILE* ifile = fopen("ride.in", "r");
 
 	char comet[8], group[8];
