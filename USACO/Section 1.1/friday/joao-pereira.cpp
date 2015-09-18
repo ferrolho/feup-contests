@@ -57,8 +57,6 @@ int main() {
 
 		leap = isLeapYear(currentYear);
 
-		cout << "year: " << currentYear << " leap: " << leap << endl;
-
 		while (currentMonth < 13) {
 
 			nDays = howManyDays(currentMonth, leap);
