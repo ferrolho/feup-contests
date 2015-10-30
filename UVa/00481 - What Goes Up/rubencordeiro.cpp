@@ -58,7 +58,5 @@ int main() {
         std::cout << item << std::endl;
     }
 
-    system("PAUSE");
-
     return 0;
 }
