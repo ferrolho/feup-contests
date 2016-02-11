@@ -25,7 +25,7 @@ public:
 	}
 };
 
-class Square: public Instruction {
+class Square : public Instruction {
 	ui r, c, s;
 public:
 	Square(ui r, ui c, ui s) {
@@ -39,10 +39,9 @@ public:
 	}
 };
 
-class Line: public Instruction {
-public:
+class Line : public Instruction {
 	ui r1, c1, r2, c2;
-
+public:
 	Line(ui r1, ui c1, ui r2, ui c2) {
 		this->r1 = r1;
 		this->c1 = c1;
@@ -56,6 +55,19 @@ public:
 	}
 };
 
+class Erase : public Instruction {
+	ui r, c;
+public:
+	Erase(ui r, ui c) {
+		this->r = r;
+		this->c = c;
+	}
+
+	std::ostream& print(std::ostream& os) const {
+		return os << "ERASE_CELL " << r << " " << c;
+	}
+};
+
 // Constants
 const ui N = 1000;
 const ui M = 1000;
@@ -63,6 +75,7 @@ const ui M = 1000;
 // Globals
 bool picture[N][M];
 bool visited[N][M];
+vector<Instruction*> instructions;
 
 int main() {
 	/*
@@ -82,52 +95,78 @@ int main() {
 	}
 
 	/*
-	 * Processing
+	 * Processing NxN squares with N-2 empty cells
 	 */
-	vector<Instruction*> instructions;
+
+	for (ui i = 1; i < n; i++) {
+		for (ui j = 1; j < m; j++) {
+			if (picture[i][j] && !visited[i][j]) {
+				ui n = 0;
+				vector<pair<ui, ui>> emptyCells = vector<pair<ui, ui>>();
+				bool flag = false, make = false;
+				while (n++ && emptyCells.size() <= n) {
+					if (flag) {
+						visited[i + n - 1][j] = true;
+						visited[i - n - 1][j] = true;
+						visited[i + n - 1][j + n - 1] = true;
+						visited[i - n - 1][j - n - 1] = true;
+						visited[i + n - 1][j - n - 1] = true;
+						visited[i - n - 1][j - n - 1] = true;
+						visited[i][j + n - 1] = true;
+						visited[i][j - n - 1] = true;
+						make = true;
+					}
+					if (!picture[i + n][j]) {
+						emptyCells.push_back(make_pair(i + n, j));
+					}
+					if (!picture[i - n][j]) {
+						emptyCells.push_back(make_pair(i - n, j));
+					}
+					if (!picture[i + n][j - n]) {
+						emptyCells.push_back(make_pair(i + n, j - n));
+					}
+					if (!picture[i + n][j + n]) {
+						emptyCells.push_back(make_pair(i + n, j + n));
+					}
+					if (!picture[i - n][j + n]) {
+						emptyCells.push_back(make_pair(i - n, j + n));
+					}
+					if (!picture[i - n][j - n]) {
+						emptyCells.push_back(make_pair(i - n, j - n));
+					}
+					if (!picture[i][j + n]) {
+						emptyCells.push_back(make_pair(i, j + n));
+					}
+					if (!picture[i][j - n]) {
+						emptyCells.push_back(make_pair(i, j - n));
+					}
+					flag = true;
+				}
+
+				if (make) {
+					for (ui i = 0; i < emptyCells.size(); i++)
+						instructions.push_back(new Erase(emptyCells[i].first, emptyCells[i].second));
+					instructions.push_back(new Square(i, j, n));
+				}
+			}
+		}
+	}
+
+
+	/*
+	* Processing lines and isolated squares
+	*/
 
 	for (ui i = 0; i < n; i++)
 		for (ui j = 0; j < m; j++)
 			if (picture[i][j] && !visited[i][j]) {
-				// expand to the right
-				ui right = j;
-				ui horNonVisited = 0;
+				ui jStart = j;
 
-				while (right < m && picture[i][right]) {
-					if (!visited[i][right])
-						horNonVisited++;
+				do {
+					j++;
+				} while (j < m && picture[i][j]);
 
-					right++;
-				}
-				right--;
-
-				// expand downwards
-				ui down = i;
-				ui verNonVisited = 0;
-
-				while (down < n && picture[down][j]) {
-					if (!visited[down][j])
-						verNonVisited++;
-
-					down++;
-				}
-				down--;
-
-				// save best instruction
-				Line* line =
-						horNonVisited > verNonVisited ?
-								new Line(i, j, i, right) :
-								new Line(i, j, down, j);
-
-				instructions.push_back(line);
-
-				// update visited cells matrix
-				if (horNonVisited > verNonVisited)
-					for (ui k = line->c1; k <= line->c2; k++)
-						visited[line->r1][k] = true;
-				else
-					for (ui k = line->r1; k <= line->r2; k++)
-						visited[k][line->c1] = true;
+				instructions.push_back(new Line(i, jStart, i, j - 1));
 			}
 
 	/*
