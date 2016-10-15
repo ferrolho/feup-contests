@@ -24,7 +24,7 @@ int main() {
 
 	string s;
 
-	for (ui i = 1; s.length() < n;i++)
+	for (ui i = 1; s.length() < n; i++)
 		s.append(smallestMultipleOf4ThatBeginsWithN(i));
 
 	cout << s[n - 1] << endl;
