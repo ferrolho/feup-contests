@@ -33,3 +33,6 @@ _ReSharper*/
 *.cbp
 *.depend
 *.layout
+
+# Custom
+*.out
