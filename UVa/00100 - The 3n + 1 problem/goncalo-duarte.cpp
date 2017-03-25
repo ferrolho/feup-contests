@@ -7,7 +7,7 @@ int getCycleLength(int n){
                 return 1;
         }
         if(map.find(n) == map.end()) {
-                map[n] = getCycleLength(n % 2 == 0 ? n / 2 : 3 * n + 1) + 1;;
+                map[n] = getCycleLength(n % 2 == 0 ? n >> 1 : 3 * n + 1) + 1;;
         }
         return map[n];
 }
