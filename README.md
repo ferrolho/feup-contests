@@ -1,9 +1,9 @@
 FEUP Contests
 =============
 
-###Contest templates:
+### Contest templates:
 
-####C++11
+#### C++11
 
 ```c++
 /*
@@ -84,7 +84,7 @@ int main() {
 }
 ```
 
-####C++
+#### C++
 
 ```c++
 /*
@@ -135,7 +135,7 @@ int main() {
 }
 ```
 
-####C
+#### C
 
 ```c
 /*
